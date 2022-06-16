@@ -16,7 +16,7 @@ class CreateQuizzesTable extends Migration
     {
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('job_id')->unsigned();
             $table->string('question')->nullable();
             $table->string('option1')->nullable();
             $table->string('option2')->nullable();
@@ -25,7 +25,7 @@ class CreateQuizzesTable extends Migration
             $table->string('correct_answer')->nullable();
             $table->timestamps();
 
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('job_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

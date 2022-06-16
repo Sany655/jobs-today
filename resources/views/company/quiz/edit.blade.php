@@ -7,7 +7,7 @@
     @endif
     <div class="card">
         <div class="card-body row">
-            <form action="{{ url('admin/quiz/update') }}" method="post" class="col-lg-6 m-auto">
+            <form action="{{ url('quiz/update') }}" method="post" class="col-lg-6 m-auto">
                 @csrf
                 <input type="hidden" class="form-control mb-2" name="id" placeholder="Category"
                     value="{{ $quiz->id }}" required readonly>

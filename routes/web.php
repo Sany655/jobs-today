@@ -53,35 +53,27 @@ Route::group(['prefix' => 'admin'], function () {
         });
         Route::resource('title', TitleController::class);
         Route::resource('category', CategoryController::class);
-        Route::resource('company', CompanyController::class)->except(['edit','update']);
-        Route::resource('location',LocationController::class);
+        Route::resource('company', CompanyController::class)->except(['edit', 'update']);
+        Route::resource('location', LocationController::class);
         Route::post('approve-company', [CompanyController::class, 'approveCompany'])->name('approve-company');
         Route::post('disapprove-company', [CompanyController::class, 'disapproveCompany'])->name('disapprove-company');
-        Route::get('company/edit/{id}',[CompanyController::class,'adminEditCompnay']);
-        Route::post('company/update',[CompanyController::class,'adminUpdateCompnay']);
-
-        // quiz related routes
-        Route::get('quiz', [QuizController::class, 'getQuizzesByCategory']);
-        Route::get('quiz/create/{category_id}', [QuizController::class, 'createQuizesByCategory']);
-        Route::post('quiz/create', [QuizController::class, 'insertQuizesByCategory']);
-        Route::delete('quiz/delete/{id}', [QuizController::class, 'deleteQuiz']);
-        Route::get('quiz/edit/{id}',[QuizController::class,'editQuiz']);
-        Route::post('quiz/update',[QuizController::class,'updateQuiz']);
+        Route::get('company/edit/{id}', [CompanyController::class, 'adminEditCompnay']);
+        Route::post('company/update', [CompanyController::class, 'adminUpdateCompnay']);
 
         // job seakers / users - admin related routes
-        Route::get('users',[UserController::class,'index']);
-        Route::get('users/edit/{id}',[UserController::class,'edit']);
-        Route::post('users/update',[UserController::class,'update']);
-        Route::delete('users/delete/{id}',[UserController::class,'delete']);
-        Route::get('users/status/{id}',[UserController::class,'status']);
-        Route::get('users/cv/{id}',[UserController::class,'show_cv']);
-        Route::get('users/highlight/{id}',[UserController::class,'highlight_user']);
+        Route::get('users', [UserController::class, 'index']);
+        Route::get('users/edit/{id}', [UserController::class, 'edit']);
+        Route::post('users/update', [UserController::class, 'update']);
+        Route::delete('users/delete/{id}', [UserController::class, 'delete']);
+        Route::get('users/status/{id}', [UserController::class, 'status']);
+        Route::get('users/cv/{id}', [UserController::class, 'show_cv']);
+        Route::get('users/highlight/{id}', [UserController::class, 'highlight_user']);
 
         // applications
-        Route::get('applications',[ApplicationController::class,'index']);
+        Route::get('applications', [ApplicationController::class, 'index']);
 
         // chats
-        Route::view('chat','admin.chat.chat');
+        Route::view('chat', 'admin.chat.chat');
     });
 });
 
@@ -89,23 +81,31 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::group(['middleware' => 'company'], function () {
     Route::view('/', 'company.index');
-    Route::get('company/{company}/edit',[CompanyController::class,'edit']);
-    Route::post('company/{company}',[CompanyController::class,'update']);
+    Route::get('company/{company}/edit', [CompanyController::class, 'edit']);
+    Route::post('company/{company}', [CompanyController::class, 'update']);
     Route::post('/logout', function () {
         session()->forget('company');
         return redirect()->back();
     });
     Route::resource('job', JobController::class);
-    Route::post('job/{id}/update', [JobController::class,'update']);
-    Route::get('/job/{id}/applications',[ApplicationController::class,'job_applications']);
-    Route::get('cv/{id}',[CVController::class,'show']);
+    Route::post('job/{id}/update', [JobController::class, 'update']);
+    Route::get('/job/{id}/applications', [ApplicationController::class, 'job_applications']);
+    Route::get('cv/{id}', [CVController::class, 'show']);
+
+    // quiz related routes
+    Route::get('quiz', [QuizController::class, 'getQuizzesByJob']);
+    Route::get('quiz/create/{job_id}', [QuizController::class, 'createQuizesByJob']);
+    Route::post('quiz/create', [QuizController::class, 'insertQuizesByJob']);
+    Route::delete('quiz/delete/{id}', [QuizController::class, 'deleteQuiz']);
+    Route::get('quiz/edit/{id}', [QuizController::class, 'editQuiz']);
+    Route::post('quiz/update', [QuizController::class, 'updateQuiz']);
 });
 
 Route::get('registration', function () {
     if (Session::get('company')) {
         return redirect()->back();
     } else {
-        return view('company.registration',['locations'=>Location::all()]);
+        return view('company.registration', ['locations' => Location::all()]);
     }
 });
 Route::post('registration', [CompanyController::class, 'registration']);

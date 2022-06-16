@@ -1,9 +1,9 @@
-@extends('layouts.admin')
-
+@extends('layouts.company')
+@section('job.index', 'class=active')
 @section('main-content')
     <div class="card">
         <div class="card-body">
-            <a href="{{ url('admin/quiz/create/' . $category_id) }}"><button class="btn btn-primary d-block ml-auto">Create
+            <a href="{{ url('quiz/create/' . $job_id) }}"><button class="btn btn-primary d-block ml-auto">Create
                     Quiz</button></a>
             <div class="m-t-25">
                 <div class="table-responsive">
@@ -20,7 +20,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            -@foreach ($quizzes as $quiz)
+                            @foreach ($quizzes as $quiz)
                                 <tr>
                                     <td>{{ $quiz->question }}</td>
                                     <td>{{ $quiz->correct_answer }}</td>
@@ -28,8 +28,8 @@
                                     <td>{{ $quiz->option2 }}</td>
                                     <td>{{ $quiz->option3 }}</td>
                                     <td>{{ $quiz->option4 }}</td>
-                                    <td><a class="btn btn-sm btn-warning" href="{{url('admin/quiz/edit/' . $quiz->id)}}">Edit</a></td>
-                                    <form action="{{ url('admin/quiz/delete/' . $quiz->id) }}" method="post">
+                                    <td><a class="btn btn-sm btn-warning" href="{{url('quiz/edit/' . $quiz->id)}}">Edit</a></td>
+                                    <form action="{{ url('quiz/delete/' . $quiz->id) }}" method="post">
                                         @csrf
                                         @method('delete')
                                         <td><button type="submit" class="btn btn-sm btn-danger">Delete</button></td>

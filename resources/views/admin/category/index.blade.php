@@ -13,7 +13,6 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Quizzes</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                             <th>#</th>
@@ -24,8 +23,6 @@
                         @foreach ($categories as $category)
                             <tr>
                                 <td>{{ $category->category }}</td>
-                                <td><a href="{{ url('admin/quiz?type=admin&id=' . $category->id) }}">manage quizes</a>
-                                </td>
                                 <td>{{ $category->created_at }}</td>
                                 <td>{{ $category->updated_at }}</td>
                                 <td><a href="{{ route('category.edit', $category->id) }}"><button

@@ -9,7 +9,6 @@ class QuizController extends Controller
 {
     public function deleteQuiz($id)
     {
-
         try {
             Quiz::where('id', $id)->delete();
             return redirect()->back()->with('res', ['type' => 'success', 'message' => 'Succesfully Deleted']);
@@ -18,29 +17,25 @@ class QuizController extends Controller
         }
     }
 
-    public function getQuizzesByCategory()
+    public function getQuizzesByJob()
     {
-        $category_id = request('id');
-        $quizzes = Quiz::where('category_id', $category_id)->get();
-        if (request('type') == 'admin') {
-            return view('admin.quiz.index', ['category_id' => $category_id, 'quizzes' => $quizzes]);
-        }else{
-            return $quizzes;
-        }
+        $job_id = request('id');
+        $quizzes = Quiz::where('job_id', $job_id)->get();
+        return view('company.quiz.index', ['job_id' => $job_id, 'quizzes' => $quizzes]);
     }
 
-    public function createQuizesByCategory($category_id)
+    public function createQuizesByJob($job_id)
     {
-        return view('admin.quiz.create', ['category_id' => $category_id]);
+        return view('company.quiz.create', ['job_id' => $job_id]);
     }
 
-    public function insertQuizesByCategory(Request $request)
+    public function insertQuizesByJob(Request $request)
     {
         try {
             $all = $request->all();
             unset($all['_token']);
             Quiz::insert($all);
-            return redirect('admin/quiz?type=admin&id=' . $request->category_id)->with('res', ['type' => 'success', 'message' => 'Succesfully added']);
+            return redirect('quiz?id=' . $request->job_id)->with('res', ['type' => 'success', 'message' => 'Succesfully added']);
         } catch (\Illuminate\Database\QueryException $ex) {
             return redirect()->back()->with('res', ['type' => 'danger', 'message' => json_encode($ex->getMessage())]);
         }
@@ -48,12 +43,12 @@ class QuizController extends Controller
 
     public function editQuiz($id)
     {
-        return view('admin.quiz.edit',['quiz'=>Quiz::where('id',$id)->first()]);
+        return view('company.quiz.edit', ['quiz' => Quiz::where('id', $id)->first()]);
     }
 
     public function updateQuiz(Request $request)
     {
-        $quiz = Quiz::where('id',$request->id)->first();
+        $quiz = Quiz::where('id', $request->id)->first();
         $quiz->question = $request->question;
         $quiz->option1 = $request->option1;
         $quiz->option2 = $request->option2;
@@ -61,6 +56,6 @@ class QuizController extends Controller
         $quiz->option4 = $request->option4;
         $quiz->correct_answer = $request->correct_answer;
         $quiz->save();
-        return redirect('admin/quiz?type=admin&id='.$quiz->category_id);
+        return redirect('quiz?id=' . $quiz->job_id);
     }
 }

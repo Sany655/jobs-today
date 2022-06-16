@@ -11,5 +11,5 @@ php laravel project
 * php artisan key:generate
 * npm install => if package.json has any dependency
 * create a database like .env file
-* php artisan migrate
+* php artisan migrate:fresh
 * php artisan db:seed

@@ -24,6 +24,7 @@
                                 <th>education</th>
                                 <th>experience</th>
                                 <th>requirements</th>
+                                <th>quizzes</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -37,10 +38,12 @@
                                     <td>{{ $job->education }}</td>
                                     <td>{{ $job->experience }}</td>
                                     <td>{{ $job->requirements }}</td>
+                                    <td><a href="{{ url('quiz?id=' . $job->id) }}">manage quizzes</a>
+                                    </td>
                                     <td>
-                                        <a href="{{url('job/'.$job->id.'/edit')}}">Edit</a>
+                                        <a href="{{ url('job/' . $job->id . '/edit') }}">Edit</a>
                                         |
-                                        <a href="{{url('job/'.$job->id.'/applications')}}">Applications</a>
+                                        <a href="{{ url('job/' . $job->id . '/applications') }}">Applications</a>
                                     </td>
                                 </tr>
                             @endforeach

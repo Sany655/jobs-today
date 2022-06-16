@@ -7,10 +7,10 @@
     @endif
     <div class="card">
         <div class="card-body row">
-            <form action="{{ url('admin/quiz/create') }}" method="post" class="col-lg-6 m-auto">
+            <form action="{{ url('quiz/create') }}" method="post" class="col-lg-6 m-auto">
                 @csrf
-                <input type="hidden" class="form-control mb-2" name="category_id" placeholder="Category"
-                    value="{{ $category_id }}" required readonly>
+                <input type="hidden" class="form-control mb-2" name="job_id" placeholder="Job"
+                    value="{{ $job_id }}" required readonly>
                 <input type="text" class="form-control mb-2" name="question" placeholder="Question" required>
                 <select name="correct_answer" id="" required class="form-control mb-2">
                     <option value="" selected>Correct Option</option>
