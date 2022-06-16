@@ -39,7 +39,7 @@ Route::post('/update-cv',[CVController::class,'upsert']);
 Route::get('/get-cv',[CVController::class,'edit']);
 
 // Quiz controller with quiz model
-Route::get('/quiz',[QuizController::class,'getQuizzesByCategory']);
+Route::get('/quiz',[QuizController::class,'getQuizzesByJobApi']);
 
 // Apply for job
 Route::post('/apply-confirmations',[ApplicationController::class,'apply_confirm']);

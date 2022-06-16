@@ -23,6 +23,11 @@ class QuizController extends Controller
         $quizzes = Quiz::where('job_id', $job_id)->get();
         return view('company.quiz.index', ['job_id' => $job_id, 'quizzes' => $quizzes]);
     }
+    public function getQuizzesByJobApi()
+    {
+        $job_id = request('id');
+        return Quiz::where('job_id', $job_id)->get();
+    }
 
     public function createQuizesByJob($job_id)
     {
