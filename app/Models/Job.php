@@ -10,6 +10,11 @@ class Job extends Model
     use HasFactory;
     protected $guarded = [];
 
+    public function quizzes()
+    {
+        return $this->hasMany('App\Models\Quiz','job_id','id');
+    }
+
     /**
      * Get the category that owns the Job
      *

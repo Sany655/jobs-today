@@ -9,9 +9,9 @@ class Quiz extends Model
 {
     use HasFactory;
     protected $guarded = [];
-    public function category()
+    public function job()
     {
-        return $this->belongsTo('App\Models\Category','category_id','id');
+        return $this->belongsTo('App\Models\Job','job_id','id');
     }
     public $timestamp = true;
 }

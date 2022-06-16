@@ -2,11 +2,11 @@
 
 @section('contents')
     <div class="container-fluid">
-        <div class="d-flex full-height p-v-15 flex-column justify-content-between">
+        <div class="d-flex full-height p-v-15 flex-column">
             <div class="d-none d-md-flex p-h-40">
                 <img src="assets/images/logo/logo.png" alt="">
             </div>
-            <div class="container">
+            <div class="container my-auto">
                 <div class="row align-items-center">
                     <div class="col-md-5">
                         <div class="card">
